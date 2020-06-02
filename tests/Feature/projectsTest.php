@@ -72,4 +72,20 @@ class projectsTest extends TestCase
 
         $this->post('/projects', $attributes)->assertSessionHasErrors('description');
     }
+
+    /**
+     * A basic feature test example.
+     *
+     * @test
+     */
+    public function a_project_require_a_owner()
+    {
+
+        // $this->withoutExceptionHandling();
+
+        $attributes = factory('App\Project')->raw();
+
+
+        $this->post('/projects', $attributes)->assertRedirect('login');
+    }
 }
