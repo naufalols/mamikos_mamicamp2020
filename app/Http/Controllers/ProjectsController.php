@@ -10,7 +10,7 @@ class ProjectsController extends Controller
     {
         $projects = Project::all();
 
-        return view('index', compact('projects'));
+        return view('projects.index', compact('projects'));
     }
 
     public function store()
@@ -20,5 +20,12 @@ class ProjectsController extends Controller
         Project::create($attributes);
 
         return redirect('/projects');
+    }
+
+    public function show(Project $project)
+    {
+        // $project = Project::findOrFail(request('project'));
+
+        return view('projects.show', compact('project'));
     }
 }
