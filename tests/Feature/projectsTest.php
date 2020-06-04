@@ -17,6 +17,40 @@ class projectsTest extends TestCase
     use WithFaker, RefreshDatabase;
 
 
+    public function guests_cannot_create_project()
+    {
+        $attributes = factory('App\Project')->raw();
+        $this->post('/projects', $attributes)->assertRedirect('login');
+    }
+
+    /**
+     * A basic feature test example.
+     *
+     * @test
+     */
+
+    public function guests_cannot_view_project()
+    {
+        $this->get('/projects')->assertRedirect('login');
+    }
+
+    /**
+     * A basic feature test example.
+     *
+     * @test
+     */
+
+    public function guests_cannot_view_a_single_project()
+    {
+        $project = factory('App\Project')->create();
+
+        $this->get($project->path())->assertRedirect('login');
+    }
+    /**
+     * A basic feature test example.
+     *
+     * @test
+     */
     public function a_user_can_create_a_project()
     {
         $this->withoutExceptionHandling();
@@ -39,19 +73,39 @@ class projectsTest extends TestCase
     /**
      * @test
      */
-    public function a_user_can_view_a_project()
+    public function a_user_can_view_their_project()
     {
+
+        $this->be(factory('App\User')->create());
 
         $this->withoutExceptionHandling();
 
 
-        $project = factory('App\Project')->create();
+        $project = factory('App\Project')->create(['owner_id' => auth()->id()]);
 
         $this->get($project->path())
             ->assertSee($project->title)
             ->assertSee($project->description);
     }
 
+
+    /**
+     * A basic feature test example.
+     *
+     * @test
+     */
+
+    public function an_authenticated_useer_cannot_view_the_projects_of_others()
+    {
+        $this->be(factory('App\User')->create());
+
+        // $this->withoutExceptionHandling();
+
+
+        $project = factory('App\Project')->create();
+
+        $this->get($project->path())->assertStatus(403);
+    }
     /**
      * A basic feature test example.
      *
