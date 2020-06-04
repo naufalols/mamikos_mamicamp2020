@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Project;
 use App\User;
+use App\Project;
 
 class ProjectsController extends Controller
 {
