@@ -1,23 +1,29 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container mx-auto">
-        <div class="flex item-center mb-3">
-            <h1 class="header h1 mr-auto">Birdboard</h1>
-            <a type="button" class="button is-small is-info" href="{{url('/projects/create')}}">New Project</a>
-        </div>
+    <header class="flex item-center mb-3 py-4">
+       <div class="flex justify-between w-full">
+            <h2 class="text-gray-600 text-sm font-normal">My Project</h2>
+            <a type="button" class="button-blue" href="{{url('/projects/create')}}">New Project</a>
+       </div>
+    </header>
+    
 
-        <div class="flex ">
+        <main class="lg:flex lg:flex-wrap -mx-3">
         @forelse($projects as $project)
-            <div class="bg-white mr-4 p-5 rounded shadow  w-1/3" style="height: 208px">
-                <h3 class="font-normal text-xl mb-4 py-4">{{$project->title}}</h3>
+        <div class="lg:w-1/3 px-3 pb-6">
+            <div class="bg-white p-5 rounded-lg shadow  " style="height: 208px">
+                <h3 class="font-normal text-xl mb-3 py-4 -ml-5 border-l-4 border-blue-101 pl-4">
+                <a href="{{$project->path()}}">{{str_limit($project->title, 10)}}</a>
+                </h3>
                 <div class="text-gray-600">
-                    {{ str_limit($project->description, 250)}}
+                    {{ str_limit($project->description, 100)}}
                 </div>
             </div>
+        </div>
         @empty
             <li>No Projects Yet.</li>   
         @endforelse
-        </div>
-    </div>
+        </main>
+   
 @endsection
