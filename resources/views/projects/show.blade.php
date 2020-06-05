@@ -2,14 +2,36 @@
 
 @section('content')
     
-    <title>Document</title>
-</head>
-<body>
-    <div class="container">
-    <h1 class="header h1">{{$project->title}}</h1>
+    <header class="flex item-center mb-3 py-4">
+        <div class="flex justify-between items-end w-full">
+                <p class="text-gray-600 text-sm font-normal">
+                    <a href="{{url('/projects')}}">My Project</a> / {{$project->title}}
+                </p>
+                <a type="button" class="button-blue" href="{{url('/projects/create')}}">New Project</a>
+        </div>
+    </header>
 
-    <p>{{ $project->description}}</p>
-<br>
-    <a type="button" class="button is-white" href="{{url('/projects')}}">Go Back</a>
-</div>
+    <main>
+        <div class="lg:flex -mx-3">
+            <div class="lg:w-3/4 px-3 mg-6">
+                <div class="mb-8">
+                    <h2 class="text-lg text-gray-600 font-normal mb-3">Tasks</h2>
+                    <div class="card mb-3">Lorem Ipsum</div>
+                    <div class="card mb-3">Lorem Ipsum</div>
+                    <div class="card mb-3">Lorem Ipsum</div>
+                    <div class="card">Lorem Ipsum</div>
+                </div>
+                <div>
+                    <h2 class="text-lg text-gray-600 font-normal mb-3">General Notes</h2>
+                    <textarea class="card w-full" style="min-height: 200px">Lorem Ipsum</textarea>
+                </div>
+            </div>
+
+
+            <div class="lg:w-1/4 px-3">
+               @include('projects.card')
+            </div>
+        </div>
+    </main>
+  
 @endsection
