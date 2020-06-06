@@ -54,7 +54,7 @@ class ManageProjectsTest extends TestCase
 
         $this->assertDatabaseHas('projects', $attributes);
 
-        $this->get('/projects')->assertSee(str_limit($attributes['title'], 10));
+        $this->get('/projects')->assertSee(str_limit($attributes['title'], 20));
     }
 
 
